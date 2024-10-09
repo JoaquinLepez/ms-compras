@@ -1,0 +1,16 @@
+@startuml Compra - Diagrama de clases
+
+class Model {
+ clase de SQLAlchemy
+}
+
+class Compra {
+    - id: int
+    - producto_id: int
+    - fecha_compra: datetime
+    - direccion_envio: string
+}
+
+Model <|-- Compra
+
+@enduml
