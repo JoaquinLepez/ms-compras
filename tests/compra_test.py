@@ -1,7 +1,7 @@
 import unittest, os
 from app import create_app, db
 from app.models import Compra
-class UserTestCase(unittest.TestCase):
+class CompraTestCase(unittest.TestCase):
     
     def setUp(self):
         # User
