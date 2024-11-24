@@ -1,15 +1,22 @@
 from ..repository import CompraRepository
 from app.models import Compra
+from app import cache
 
 repository = CompraRepository()
 
 class CompraService:
 
     def all(self) -> list[Compra]:
+        result = cache.get('compras')
+        if result is None:
+            result = repository.all()
+            cache.set('compras', result, timeout=15)
         return repository.all()
     
     def add(self, compra: Compra) -> Compra:
-        return repository.add(compra)
+        compra = repository.add(compra)
+        cache.set(f'compra_{compra.id}', compra, timeout=15)
+        return compra
     
     def delete(self, id: int) -> bool:
         compra = self.find(id)

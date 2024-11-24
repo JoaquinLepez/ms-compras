@@ -10,7 +10,7 @@ response_schema = ResponseSchema()
 compra = Blueprint('compra', __name__)
 
 @compra.route('/compras', methods=['GET'])
-def index():
+def get_all():
     response_builder = ResponseBuilder()
     data = compra_schema.dump(compra_service.all(), many=True)
     response_builder.add_message("Compras found").add_status_code(200).add_data(data)
