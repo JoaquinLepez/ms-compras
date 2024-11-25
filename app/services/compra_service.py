@@ -1,3 +1,4 @@
+from datetime import datetime
 from ..repository import CompraRepository
 from app.models import Compra
 from app import cache
@@ -14,6 +15,7 @@ class CompraService:
         return repository.all()
     
     def add(self, compra: Compra) -> Compra:
+        compra.fecha_compra = datetime.now()
         compra = repository.add(compra)
         cache.set(f'compra_{compra.id}', compra, timeout=15)
         return compra
