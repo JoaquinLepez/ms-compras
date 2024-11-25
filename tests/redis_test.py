@@ -42,6 +42,16 @@ class RedisTestCase(unittest.TestCase):
         self.assertEqual(cached_compra.producto_id, compra1.producto_id)
         self.assertEqual(cached_compra.fecha_compra, compra1.fecha_compra)
         self.assertEqual(cached_compra.direccion_envio, compra1.direccion_envio)
+    
+    def test_cache_after_deleting_compra(self):
+        compra = Compra(producto_id=1, fecha_compra='2024-09-13T15:30:00', direccion_envio='Calle 1')
+        compra1 = service.add(compra)
+        cached_compra = cache.get(f'compra_{compra1.id}')
+        self.assertIsNotNone(cached_compra)
+
+        service.delete(compra1.id)
+        cached_compra = cache.get(f'compra_{compra1.id}')
+        self.assertIsNone(cached_compra)
 
 if __name__ == '__main__':
     unittest.main()

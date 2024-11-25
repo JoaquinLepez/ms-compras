@@ -21,6 +21,7 @@ class CompraService:
     def delete(self, id: int) -> bool:
         compra = self.find(id)
         if compra:
+            cache.delete(f'compra_{compra.id}')
             repository.delete(compra)
             return True
         else:
