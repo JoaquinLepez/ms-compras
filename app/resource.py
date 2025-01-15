@@ -2,12 +2,18 @@ from flask import Blueprint, request
 from marshmallow import ValidationError
 from .mapping import CompraSchema, ResponseSchema
 from .services import CompraService, ResponseBuilder
+from app import db
 
 compra_service = CompraService()
 compra_schema = CompraSchema()
 response_schema = ResponseSchema()
 
 compra = Blueprint('compra', __name__)
+
+@compra.route('/', methods=['GET'])
+def index():
+    db.create_all()
+    return 'Hola mundo', 200
 
 @compra.route('/compras', methods=['GET'])
 def get_all():
