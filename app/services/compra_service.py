@@ -7,7 +7,6 @@ repository = CompraRepository()
 class CompraService:
 
     def all(self) -> list[Compra]:
-        result = repository.all()
         return repository.all()
     
     def add(self, compra: Compra) -> Compra:

@@ -18,7 +18,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db, version_table='alembic_version_compras')
 
-    from app.resource import compra
+    from app.resources import compra
     app.register_blueprint(compra, url_prefix='/api/v1')
 
     return app

@@ -12,11 +12,6 @@ compra = Blueprint('compra', __name__)
 
 @compra.route('/', methods=['GET'])
 def index():
-    db.create_all()
-    return 'Hola mundo', 200
-
-@compra.route('/compras', methods=['GET'])
-def get_all():
     response_builder = ResponseBuilder()
     data = compra_schema.dump(compra_service.all(), many=True)
     response_builder.add_message("Compras found").add_status_code(200).add_data(data)
