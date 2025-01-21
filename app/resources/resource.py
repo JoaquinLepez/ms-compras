@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from marshmallow import ValidationError
-from .mapping import CompraSchema, ResponseSchema
-from .services import CompraService, ResponseBuilder
+from app.mapping import CompraSchema, ResponseSchema
+from app.services import CompraService, ResponseBuilder
 from app import db
 
 compra_service = CompraService()
