@@ -1,29 +1,23 @@
 from datetime import datetime
 from ..repository import CompraRepository
 from app.models import Compra
-from app import cache
 
 repository = CompraRepository()
 
 class CompraService:
 
     def all(self) -> list[Compra]:
-        result = cache.get('compras')
-        if result is None:
-            result = repository.all()
-            cache.set('compras', result, timeout=15)
+        result = repository.all()
         return repository.all()
     
     def add(self, compra: Compra) -> Compra:
         compra.fecha_compra = datetime.now()
         compra = repository.add(compra)
-        cache.set(f'compra_{compra.id}', compra, timeout=15)
         return compra
     
     def delete(self, id: int) -> bool:
         compra = self.find(id)
         if compra:
-            cache.delete(f'compra_{compra.id}')
             repository.delete(compra)
             return True
         else:
